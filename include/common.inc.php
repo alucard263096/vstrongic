@@ -33,8 +33,45 @@ if(empty($setting)){
 }
 $smarty->assign("setting",$setting);
 
-$lang="_en";
 $uploadpath="http://cmsdev.app-link.org/alucard263096/companywebsite/upload/";
 $smarty->assign("uploadpath",$uploadpath);
+
+$lang=$_SESSION["lang"];
+if(isset($_REQUEST["lang"])){
+    $lang=$_REQUEST["lang"];
+}
+
+if($lang!="en"&&$lang!="cn"){
+    $lang="en";
+}
+
+$currenturl=str_replace("?lang=cn","",$_SERVER["REQUEST_URI"]);
+$currenturl=str_replace("&lang=$lang","",$currenturl);
+if(strstr($currenturl,"?")){
+    
+    $smarty->assign("haveget",1);
+}
+
+$smarty->assign("currenturl",$currenturl);
+
+
+$_SESSION["lang"]=$lang;
+
+$lang="_".$lang;
+$langini=ROOT."/lang/language$lang.ini";
+$LangArr=parse_ini_file($langini);
+
+$smarty->assign("Lang",$LangArr);
+
+function htmlDecodeList($list,$arr){
+    
+    for($i=0;$i<count($list);$i++){
+        foreach($arr as $k=>$v){
+            $list[$i][$k]=htmlspecialchars_decode($list[$i][$v]);
+        }
+    }
+    return $list;
+
+}
 
 ?>

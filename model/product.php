@@ -16,6 +16,11 @@ public function _list($search_param,$orderby){
         $sql_where.=" and r_main.seq like '%".$search_param["seq"]."%'";
     }
   
+    if(isset($search_param["is_index"]))
+    {
+        $sql_where.=" and r_main.is_index like '%".$search_param["is_index"]."%'";
+    }
+  
     if(isset($search_param["logo"]))
     {
         $sql_where.=" and r_main.logo like '%".$search_param["logo"]."%'";
@@ -56,7 +61,7 @@ public function _list($search_param,$orderby){
         $sql_where.=" and r_main.status like '%".$search_param["status"]."%'";
     }
   
-    $sql="select  r_main.id  ,r_main.seq ,r_main.logo ,r_main.name_en ,r_main.shortname_en ,r_main.name_cn ,r_main.shortname_cn ,r_main.content_en ,r_main.content_cn ,case   r_main.status  when 'A' then '启用' when 'I' then '禁用' else 'unknow'  end as status  from  tb_product r_main  where 1=1 $sql_where  and r_main.status<>'D' 
+    $sql="select  r_main.id  ,r_main.seq ,case   r_main.is_index when 'Y' then '是' else '否'  end as is_index ,r_main.logo ,r_main.name_en ,r_main.shortname_en ,r_main.name_cn ,r_main.shortname_cn ,r_main.content_en ,r_main.content_cn ,case   r_main.status  when 'A' then '启用' when 'I' then '禁用' else 'unknow'  end as status  from  tb_product r_main  where 1=1 $sql_where  and r_main.status<>'D' 
     $orderby";
                 $query = $this->dbmgr->query($sql);
                 $result = $this->dbmgr->fetch_array_all($query);
@@ -68,7 +73,7 @@ public function _list($search_param,$orderby){
 public function get($id){
 
   
-    $sql="select  r_main.id  ,r_main.seq ,r_main.logo ,r_main.name_en ,r_main.shortname_en ,r_main.name_cn ,r_main.shortname_cn ,r_main.content_en ,r_main.content_cn ,case   r_main.status  when 'A' then '启用' when 'I' then '禁用' else 'unknow'  end as status  from  tb_product r_main  where r_main.id=$id ";
+    $sql="select  r_main.id  ,r_main.seq ,case   r_main.is_index when 'Y' then '是' else '否'  end as is_index ,r_main.logo ,r_main.name_en ,r_main.shortname_en ,r_main.name_cn ,r_main.shortname_cn ,r_main.content_en ,r_main.content_cn ,case   r_main.status  when 'A' then '启用' when 'I' then '禁用' else 'unknow'  end as status  from  tb_product r_main  where r_main.id=$id ";
                 $query = $this->dbmgr->query($sql);
                 $result = $this->dbmgr->fetch_array($query);
 

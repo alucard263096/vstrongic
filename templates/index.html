@@ -21,6 +21,111 @@ document.write('</object>');
     </div>
 </div>
 
+<div class="index inner">
+    <div class="aboutus style-1">
+        <h3 class="title">
+            <span class='myCorner' data-corner='top 5px'>{{$Lang.about}} {{$setting.shortname}}</span>
+            <a href="/about" class="more" title=" ">{{$Lang.more}}>></a>
+        </h3>
+        <div class="active editor clear contour-1">
+            {{$index_aboutus}}
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="case style-2">
+        <h3 class='title myCorner' data-corner='top 5px'>
+            {{$Lang.service}}
+            <a href="/service" title=" " class="more">{{$Lang.more}}>></a>
+        </h3>
+        <div class="active dl-jqrun contour-1">
+            {{foreach from=$service item=rs}}
+            <dl class="ind">
+                <dt><a href="/service?id={{$rs.id}}" target='_self'><img src="{{$uploadpath}}service/{{$rs.logo}}" alt="" title="" style="width:116px; height:80px;" /></a></dt>
+                <dd>
+                    <h4><a href="/service?id={{$rs.id}}" target='_self' title="{{$rs.name}}">{{$rs.name}}</a></h4>
+                    <p class="desc" ></p>
+                    <div class=" service_Desc" style="display:none;">{{$rs.content}}</div>
+                </dd>
+            </dl>
+            {{/foreach}}
+            <script>
+                $(document).ready(function () {
+                    $(".service_Desc").each(function () {
+                        var html = $(this).text();
+                        var h = html.split(" ",3);
+                        $(this).parent().find(".desc").text(h.join(" ")+"..");
+                    });
+                });
+            </script>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="index-news style-1">
+        <h3 class="title">
+            <span class='myCorner' data-corner='top 5px'>{{$Lang.productsnews}}</span>
+            <a href="/news?type=3" class="more" title=" ">{{$Lang.more}}>></a>
+        </h3>
+        <div class="active clear listel contour-2">
+            <ol class='list-none metlist'>
+                {{foreach from=$product_news item=rs key=k}}
+                <li class='list {{if $k==0}}top{{/if}}'><span class='time'>{{$rs.published_date}}</span><a href='/news?id={{$rs.id}}'  target='_self'> {{$rs.title}}</a></li>
+                {{/foreach}}
+            </ol>
+        </div>
+    </div>
+    <div class="index-news style-1">
+        <h3 class="title">
+            <span class='myCorner' data-corner='top 5px'>{{$Lang.industrynews}}</span>
+            <a href="/news?type=2" class="more" title=" ">{{$Lang.more}}>></a>
+        </h3>
+        <div class="active clear listel contour-2">
+            <ol class='list-none metlist'>
+                {{foreach from=$industry_news item=rs key=k}}
+                <li class='list {{if $k==0}}top{{/if}}'><span class='time'>{{$rs.published_date}}</span><a href='/news?id={{$rs.id}}' target='_self'> {{$rs.title}}</a></li>
+                {{/foreach}}
+            </ol>
+        </div>
+    </div>
+    <div class="index-conts style-2">
+        <h3 class='title myCorner' data-corner='top 5px'>
+            {{$Lang.joinus}}
+            <a href="/job/" title=" " class="more">{{$Lang.more}}>></a>
+        </h3>
+        <div class="active clear listel contour-2">
+            <ol class='list-none metlist'>
+                {{foreach from=$joinuslist item=rs key=k}}
+                <li class='list {{if $k==0}}top{{/if}}'><span class='time'>{{$rs.published_date}}</span><a href='/job/id={{$rs.id}}' target='_self'>{{$rs.name}}</a>{{if $rs.is_hot=="Y"}}<img class='listtop' src='/images/top.gif' alt='' />{{/if}}</li>
+                {{/foreach}}
+            </ol>
+        </div>
+    </div>
+    <div class="clear p-line"></div>
+    <div class="index-product style-2">
+        <h3 class='title myCorner' data-corner='top 5px'>
+            <span>{{$Lang.product}}</span>
+            <div class="flip">
+                <p id="trigger"></p>
+                <a class="prev" id="car_prev" href="javascript:void(0);"></a>
+                <a class="next" id="car_next" href="javascript:void(0);"></a>
+            </div>
+            <a href="/product/" title=" " class="more">{{$Lang.more}}>></a>
+        </h3>
+        <div class="active clear">
+            <div class="profld" id="indexcar" data-listnum="6">
+                <ol class='list-none metlist'>
+                {{foreach from=$productlist item=rs key=k}}
+                    <li class='list'><a href='/product?id={{$rs.id}}'  target='_self' class='img'><img src='{{$uploadpath}}/product/{{$rs.logo}}'  width='130' height='70' /></a><h3 style='width:130px;'><a href='/product?id={{$rs.id}}'  target='_self'> {{$rs.name}}</a></h3></li>
+                {{/foreach}}
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
 
 
 {{include  file="$smarty_root/footer.html" }}
